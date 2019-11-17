@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wooyoo.learning.dao.mapper.AprojectMapper">
+
+    <!-- 开启基于redis的二级缓存 -->
+    <!--<cache type="com.wooyoo.learning.util.RedisCache"/>-->
+
+    <select id="selectAll" resultType="java.util.HashMap">
+        SELECT * FROM Aproject
+    </select>
+
+    <delete id="deleteByPid">
+        DELETE FROM Aproject WHERE id = #{id}
+    </delete>
+
+    <update id="update" parameterType="com.wooyoo.learning.dao.domain.Aproject" useGeneratedKeys="true" keyProperty="aproject.id">
+        UPDATE Aproject set name = #{aproject.name} where id = #{aproject.id}
+    </update>
+
+    <insert id="insert" parameterType="com.wooyoo.learning.dao.domain.Aproject" useGeneratedKeys="true" keyProperty="aproject.id">
+        INSERT INTO Aproject(name,create_Date,update_Date) VALUES (#{aproject.name},#{aproject.createDate},#{aproject.updateDate})
+    </insert>
+</mapper>

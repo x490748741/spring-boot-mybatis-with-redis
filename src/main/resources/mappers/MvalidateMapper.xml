@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wooyoo.learning.dao.mapper.MvalidateMapper">
+
+    <!-- 开启基于redis的二级缓存 -->
+    <!--<cache type="com.wooyoo.learning.util.RedisCache"/>-->
+
+    <update id="truncateTable">
+    truncate table mvalidate
+    </update>
+
+    <select id="selectValidate" resultType="Mvalidate">
+        SELECT id,name,validate_code as validateCode,result FROM mvalidate WHERE name = #{name} and validate_code = #{validateCode} LIMIT 1
+    </select>
+
+    <select id="selectValidateList" resultType="Mvalidate">
+        SELECT id,name,validate_code as validateCode,result FROM mvalidate WHERE name = #{name} and validate_code = #{validateCode}
+    </select>
+    <select id="selectAllList" resultType="Mvalidate">
+        SELECT id,name,validate_code as validateCode,result,is_select_success as isSelectSuccess FROM mvalidate
+    </select>
+
+    <update id="updateSelectList">
+        update mvalidate set is_select_success = 1
+        where id in
+        <foreach collection="mvalidates" item="mvalidate" separator="," open="(" close=")">
+             #{mvalidate.id}
+        </foreach>
+
+
+    </update>
+<!--
+    <insert id="insertBatch">
+        INSERT INTO mvalidate(name,validate_code,result)
+        VALUES
+        <foreach collection="mvalidates" item="mvalidate" separator=",">
+            (#{mvalidate.name},#{mvalidate.validateCode},#{mvalidate.result})
+        </foreach>
+    </insert>-->
+
+    <insert id="insertBatch">
+        INSERT INTO mvalidate(name,validate_code,result)
+        VALUES
+    <foreach collection="mvalidates" item="mvalidate" separator="," >
+        (#{mvalidate.name},#{mvalidate.validateCode},#{mvalidate.result})
+    </foreach>
+    on duplicate key update name = values(name),validate_code=values(validate_code),result=values(result)
+    </insert>
+    <!--
+        <insert id="insert" parameterMap="java.util.Map">
+            INSERT INTO mvalidate(name,validate_code,result) VALUES (#{mvalidate.name},#{mvalidate.validateCode},#{mvalidate.result})
+        </insert>-->
+    </mapper>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wooyoo.learning.dao.mapper.AprojectDesignMapper">
+
+    <!-- 开启基于redis的二级缓存 -->
+    <!--<cache type="com.wooyoo.learning.util.RedisCache"/>-->
+
+    <select id="selectByPid" resultType="java.util.HashMap">
+        SELECT * FROM AprojectDesign WHERE aprojectId = #{aprojectId}
+    </select>
+
+    <delete id="truncateTableByPid">
+    delete FROM AprojectDesign where aprojectId = #{aprojectId}
+    </delete>
+
+    <insert id="insertBatch" parameterType="com.wooyoo.learning.dao.domain.AprojectDesign" >
+        INSERT INTO AprojectDesign(aprojectId,imgSrc,width,height,widthRatio,heightRatio,x,y)
+        VALUES
+        <foreach collection="aprojectDesigns" item="aprojectDesign" separator=",">
+            (#{aprojectDesign.aprojectId},#{aprojectDesign.imgSrc},#{aprojectDesign.width},#{aprojectDesign.height}
+            ,#{aprojectDesign.widthRatio},#{aprojectDesign.heightRatio},#{aprojectDesign.x},#{aprojectDesign.y})
+        </foreach>
+    </insert>
+</mapper>

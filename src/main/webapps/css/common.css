@@ -1,0 +1,256 @@
+@charset 'utf-8';
+
+
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,legend,button
+form,fieldset,input,textarea,p,blockquote,th,td,select {
+　　padding: 0;
+　　margin: 0;
+  box-sizing: border-box;
+}
+/* 酌情修改 */
+body {
+    background:#fff;color:#333;font-size:12px; margin-top:5px;font-family:"微软雅黑","Arial Narrow";
+}
+
+/* 短引用的内容可取值：''或"" */
+q:before,q:after {content:”;}
+
+/* 缩写，图片等无边框 */
+fieldset,img,abbr,acronym {border: 0 none;}
+abbr,acronym {font-variant: normal;}
+legend {color:#000;}
+
+/* 清除特殊标记的字体和字号 */
+address,caption,cite,code,dfn,em,strong,th,var {
+　　font-weight: normal;
+　　font-style: normal;
+}
+
+/* 上下标 */
+sup {vertical-align: text-top;}
+sub {vertical-align: text-bottom;}
+
+/* 设置表格的边框被合并为一个单一的边框, 指定分隔边框模型中单元格边界之间的距离为0*/
+table {
+　　border-collapse: collapse;
+　　border-spacing: 0;
+}
+/* 表格标题及内容居左显示 */
+caption,th {text-align: left;}
+input,img,select {vertical-align:middle;}
+
+/* 清除列表样式 */
+ol,ul,li {list-style: none;margin: 0;padding: 0}
+
+/* 输入控件字体 */
+input,button,textarea,select,optgroup,option {
+    font-family:inherit;
+    font-size:inherit;
+    font-style:inherit;
+    font-weight:inherit;
+}
+
+/* 标题元素样式清除 */
+h1,h2,h3,h4,h5,h6 {
+　　font-weight: normal;
+　　font-size: 100%;
+}
+
+/* 链接样式，颜色可酌情修改 */
+del,ins,a {text-decoration:none;}
+a:link {color:#009;}
+a:visited {color:#800080;}
+a:hover,a:active,a:focus {color:#c00; text-decoration:underline;}
+
+/* 鼠标样式 */
+input[type="submit"] {cursor: pointer;}
+button {cursor: pointer;}
+input::-moz-focus-inner { border: 0; padding: 0;}
+
+.clear {clear:both;}
+
+html,body {
+	height: 100%;
+}
+
+body {
+	display: flex;
+	display: -webkit-flex;
+	align-items: center;
+	-webkit-align-items: center;
+	justify-content: center;
+	-webkit-justify-content: center;
+	background: url(../img/bg.jpg) no-repeat;
+	background-size: 100% 100%;
+	margin: 0;
+}
+
+.wrap {
+	width: 100%;
+	height: 100%;
+}
+
+.wrap .top {
+    position: relative;
+    height: 58px;
+    width: 100%;
+    background: #a2bdc1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    color: #fff;
+    font-size: 24px;
+    text-align: center;
+    line-height: 58px;
+}
+
+.top .user {
+    position: absolute;
+    top: 0;
+    right: 20px;
+    font-size: 0;
+    width: 52px;
+    height: 52px;
+}
+
+.top .user img {    
+    width: 100%;
+    border-radius: 50%;
+}
+
+.wrap .container {
+	display: flex;
+	display: -webkit-flex;
+    flex-direction: row;
+    -webkit-flex-direction: row;
+    height: 100%;
+    padding-top: 84px;
+    justify-content: space-between;
+    -webkit-justify-content: space-between;
+}
+
+.wrap .left {
+	width: 14%;
+	min-width: 240px;
+	background: #ffffffbf;
+    font-size: 16px;
+    color: #8e8e8e;
+}
+
+.wrap .left li {
+    line-height: 40px;
+    border-bottom: 1px solid #8e8e8e;
+    text-align: center;
+}
+
+.wrap .left li.actived {
+    background: #a2bdc1;
+    color: #fff;
+    border-color: #fff;
+}
+
+.wrap .content {
+	width: 100%;
+    background: #ffffffbf;
+    padding: 20px;
+    margin-left: 20px;
+    overflow: scroll;
+}
+
+.wrap .content table {
+	width: 100%;
+}
+
+th {
+    border-top: 1px solid #c5d7da!important;
+}
+
+tr td, tr th{
+    border: 1px solid #c5d7da;
+    border-left: 0;
+    border-top: 0;
+    padding: 6px 2px;
+}
+
+tr td:first-child, tr th:first-child{
+    border-left: 1px solid #c5d7da;
+}
+
+tr th {
+	font-size: 14px;
+    font-weight: normal;
+}
+
+tr td {
+	font-size: 12px;
+}
+
+
+
+/*登录*/
+.login-container {
+    text-align: center;
+    background: #c5d7dac4;
+    padding: 44px;
+}
+
+.login-container img{
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    margin-bottom: 28px;
+}
+
+.form-group input {
+    font-size: 14px;
+    padding: 8px 6px;
+    margin-bottom: 18px;
+    width: 300px;
+    color: #8e8e8e;
+    border: 0;
+}
+
+.form-group input[type="button"] {
+    background: #6eaab4;
+    color: #fff;
+    font-size: 14px;
+}
+
+/*index*/
+.file-upload {
+    background: #c5d7da;
+    padding: 40px 0;
+}
+
+.file-upload .form-input {
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+    -webkit-align-items: center;
+    justify-content: center;
+    -webkit-justify-content: center;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.file-upload .form-input span {
+    width: 80px;
+    text-align: right;
+}
+
+.file-upload textarea {
+    font-size: 14px;
+    padding: 0;
+    width: 300px;
+    color: #8e8e8e;
+    border: 0;
+}
+
+
+.file-upload .form-group input {
+    margin-bottom: 0;
+}
+
+.phonestextarea {
+    width:1000px;
+}

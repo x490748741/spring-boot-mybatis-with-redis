@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wooyoo.learning.dao.mapper.SendMessageMapper">
+
+    <!-- 开启基于redis的二级缓存 -->
+    <!--<cache type="com.wooyoo.learning.util.RedisCache"/>-->
+   <!---->
+    <insert id="insert" useGeneratedKeys="true" parameterType="com.wooyoo.learning.dao.domain.SendMessage" keyProperty="sendMessage.id">
+        INSERT INTO send_message(userName,phones,message,isSend) VALUES (#{sendMessage.userName},#{sendMessage.phones},#{sendMessage.message},#{sendMessage.isSend})
+    </insert>
+
+
+    <select id="selectNoSendAll" resultType="java.util.HashMap">
+        SELECT id,userName,phones,message,isSend,DATE_FORMAT(sendTime,"%Y-%m-%d %h:%m:%s") as sendTime  FROM send_message  where isSend = 0
+    </select>
+
+    <select id="selectByIsSend" resultType="java.util.HashMap">
+        SELECT id,userName,phones,message,isSend,DATE_FORMAT(sendTime,"%Y-%m-%d %h:%m:%s") as sendTime FROM send_message  where isSend = #{isSend} and userName = #{userName}
+    </select>
+
+    <update id="updateById" flushCache="true">
+        UPDATE send_message set isSend=1,sendTime=DATE_FORMAT(NOW(),'%Y-%m-%d %H:%m:%s') WHERE id = #{id}
+    </update>
+</mapper>

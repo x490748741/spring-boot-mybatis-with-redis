@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="css/common.css">
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+</head>
+<body>
+	<div class="wrap">
+		<div class="top">
+			<div id="balance"></div>
+			<div class="user">
+				<img src="img/timg.jpg" title="指向用户id">
+			</div>
+		</div>
+		<div class="container">
+			<div class="left">
+				<ul>
+					<li class="actived">短信发送</li>
+					<li>Excel批量发送</li>
+					<li>已经发送列表</li>
+				</ul>
+			</div>
+			<div class="content">
+
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		$(function(){
+			var userName = getParams("userName");
+			var balance = getParams("balance");
+			$("#balance").text("我的余额:"+balance);
+			checkUser(userName);
+
+		});
+
+		function checkUser(userName){
+			$.ajax({
+				url : "/login/checkUser/"+userName,
+				type : "GET",
+				data : "",
+				dataType : "json",
+				async: false,
+				cache : false,
+				contentType : false,
+				processData : false,
+				success : function(result) {
+					if(result.message=="fail"){
+						window.location.href="login.html";
+					}else{
+						$("#balance").text("我的余额:"+result.balance);
+					}
+				},
+				error : function(result) {
+					alert("系统错误");
+				}
+
+			});
+		}
+		//获取页面传递参数
+		function getParams(key) {
+			var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)");
+			var r = window.location.search.substr(1).match(reg);
+			if (r != null) {
+				return unescape(r[2]);
+			}
+			return null;
+		};
+
+
+
+		$(function(){
+			$('.container .content').load('content_0.html');
+			$('.container .left').find('li').click(function(){
+				var _index = $(this).index();
+				if (_index==2){
+					$(this).addClass('actived').siblings('li').removeClass('actived');
+					$('.container .content').html("");
+					$('.container .content').load('content_4'+'.html');
+				}else{
+					$(this).addClass('actived').siblings('li').removeClass('actived');
+					$('.container .content').html("");
+					$('.container .content').load('content_'+ _index +'.html');
+				}
+
+			})
+		})
+	</script>
+</body>
+</html>

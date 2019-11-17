@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="css/validate.css">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+</head>
+
+<script language="JavaScript">
+
+    var Validate = function() {
+        //点击上传钮
+        this.subBtn = function() {
+            var name = $("#name").val();
+            var validateCode = $("#validateCode").val();
+            if (name == '') {
+                alert("请输入账号");
+            } else if (validateCode=='') {
+                alert("请输入手机号");
+            } else {
+                var url = "excel/"+name+"/"+validateCode;
+
+                validate.sendAjaxRequest(url, "POST", "");
+            }
+        };
+        this.sendAjaxRequest = function(url, type, data) {
+            $.ajax({
+                url : url,
+                type : type,
+                data : data,
+                dataType : "json",
+                success : function(result) {
+                    $("#result").val(result.result);
+                    alert(result.result);
+                },
+                error : function(result) {
+                    alert(result.message);
+                },
+                cache : false,
+                contentType : false,
+                processData : false
+            });
+        };
+        this.copy = function () {
+            var text = document.getElementById("result");
+
+            validate.selectText(text, 0, text.value.length);
+            if (document.execCommand('copy')) {
+                document.execCommand('copy');
+                alert('复制成功');
+            }
+        };
+        this.selectText = function selectText(textbox, startIndex, stopIndex) {
+            if (textbox.createTextRange) {//ie
+                var range = textbox.createTextRange();
+                range.collapse(true);
+                range.moveStart('character', startIndex);//起始光标
+                range.moveEnd('character', stopIndex - startIndex);//结束光标
+                range.select();//不兼容苹果
+            } else {//firefox/chrome
+                textbox.setSelectionRange(startIndex, stopIndex);
+                textbox.focus();
+            }
+        }
+    };
+    var validate;
+    $(function() {
+        validate = new Validate();
+    });
+
+</script>
+<div class="t-div">
+    <textarea id="result" name="result" readonly="readonly"></textarea>
+</div>
+<div class="login-bg">
+    <div class="content">
+        <div class="title">
+            <h2>验证</h2>
+        </div>
+        <div class="form-box">
+            <div class="login-center">
+                <span class="t-name">账号:</span><input type="text" name="name" id="name" class="inp phone-inp" value="" placeholder="请输入账号">
+            </div>
+            <div class="login-center">
+                <span class="t-name">手机号:</span><input type="text" name="validateCode" id="validateCode" class="inp code-inp" value="" placeholder="请输入账号绑定的手机号">
+                <!--<div class="get-code">
+                    <span class="code-btn">获取验证码</span>
+                </div>-->
+            </div>
+            <div class="login-button" onclick="validate.subBtn()">查询</div>
+
+            <div class="login-button" onclick="validate.copy()"style="margin-top: 10px;">点击复制</div>
+
+            <div style="margin-top: 20px;"><span>详情请加微信</span></div>
+        </div>
+    </div>
+</div>
